@@ -55,6 +55,7 @@ export class SearchSunatComponent implements OnInit {
   buscar() {
     if (!this.form.valid) {
       this.message.warning("Ingrese alguna descripcion para buscar");
+      return;
     }
     this.data.search(this.form.value.organizacion).subscribe(d => {
       this.allRows = d;
