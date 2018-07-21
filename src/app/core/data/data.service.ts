@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { RequestOptionsArgs, Response } from '@angular/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/Observable';
+import 'rxjs/add/observable/throw';
 import { catchError } from 'rxjs/operators';
 import { searchConfig } from '../config/search.config';
 
@@ -19,18 +20,16 @@ export class DataService {
       .pipe(catchError(this.handleError));
   }
 
-  search(query?: any): Observable<any> {
-    return this.http.get(this.url, query).pipe(catchError(this.handleError));
+  search(filterText?: string): Observable<any> {
+    const params = new HttpParams().set('ruc', filterText);
+    return this.http.get(this.url, { params }).pipe(catchError(this.handleError));
   }
 
 
   private handleError(error: HttpErrorResponse) {
-    console.error('server error:', error);
     if (error.error instanceof Error) {
       const errMessage = error.error.message;
-      return Observable.throw(errMessage);
-      // Use the following instead if using lite-server
-      // return Observable.throw(err.text() || 'backend server error');
+      return Observable.throw(errMessage);     
     }
     return Observable.throw(error || 'Node.js server error');
   }

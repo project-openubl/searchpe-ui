@@ -1,1 +1,1 @@
-export const searchConfig = { apiKey: "http://localhost:8080/api/companies?ruc=20338620919" };
+export const searchConfig = { apiKey: "http://localhost:8080/api/companies" };

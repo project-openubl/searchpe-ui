@@ -56,10 +56,9 @@ export class SearchSunatComponent implements OnInit {
     if (!this.form.valid) {
       this.message.warning("Ingrese alguna descripcion para buscar");
     }
-    const criteria: SearchCriteria = { ruc: this.form.value };
-    this.data.search(criteria).subscribe(d => {
+    this.data.search(this.form.value.organizacion).subscribe(d => {
       this.allRows = d;
-    });
+    }, e => { this.message.error(e.message); });
   }
 
 }
