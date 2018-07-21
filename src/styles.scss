@@ -1,1 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    padding-top: 60px;
+    margin-bottom: 60px; 
+    }
+    .pfng-isc-ex-container {
+          padding-bottom: 20px;
+        }
+        .pfng-isc-ex-container h5 {
+      border-bottom: 1px dashed #1e7baa;
+      padding-bottom: 16px;
+    }
+    .pfng-wizard-single-step {
+      margin-left: 0;
+    }
+    
+    .wizard-pf-row {
+      height: inherit;
+    }      
+    html {
+      position: relative;
+      min-height: 100%;
+    }
+    
+    .footer {
+      position: absolute;
+      bottom: 0;
+      width: 10%;
+      float: right;
+      height: 60px;
+      line-height: 60px; 
+    }
+    
+    a {
+      color: #0088ce;
+      text-decoration: none ;
+      cursor: pointer;
+  }
