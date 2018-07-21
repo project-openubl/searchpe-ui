@@ -3,8 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService } from '../../../core/data/message.service';
 import { PaginationConfig, TableConfig } from 'patternfly-ng';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { SearchCriteria } from '../../../core/model/search-criteria.model';
-
 @Component({
   selector: 'w4-search-sunat',
   templateUrl: './search-sunat.component.html',
