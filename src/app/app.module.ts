@@ -6,10 +6,14 @@ import { AppComponent } from './app.component';
 
 // Custom modules
 import { AboutModalModule } from './layout/about-modal/about-modal.module';
+import { NgxSearchpeModule } from './ngx/ngx-searchpe/searchpe.module';
 
 // Footer & Header
 import { HeaderComponent } from './layout/header/header.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
+
+// Ngx
+import { searchpeApiUrlProvider } from './config/searchpe-api.provider';
 
 @NgModule({
   declarations: [
@@ -24,9 +28,13 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
     AppRoutingModule,
 
     // Custom modules
-    AboutModalModule
+    AboutModalModule,
+    NgxSearchpeModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    //
+    searchpeApiUrlProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
