@@ -15,6 +15,6 @@ export class NgxSearchpeModule {
     return {
       ngModule: NgxSearchpeModule,
       providers: [CompanyService]
-    }
+    };
   }
 }

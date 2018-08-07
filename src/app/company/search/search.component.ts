@@ -11,7 +11,7 @@ import { Company } from './../../ngx/ngx-searchpe/models/company';
 })
 export class SearchComponent implements OnInit {
 
-  filterText: string = '';
+  filterText = '';
   items: Company[];
 
   // List
