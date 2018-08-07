@@ -1,9 +1,0 @@
-<div *ngIf="!w4FormControl.valid && w4FormControl.dirty">
-  <span *ngIf="w4FormControl.errors.required" class="help-block">Campo requerido</span>
-  <span *ngIf="w4FormControl.errors.minlength" class="help-block">Tamaño minimo es de : {{w4FormControl.errors.minlength.requiredLength}}</span>
-  <span *ngIf="w4FormControl.errors.maxlength" class="help-block">Tamaño maximo es de : {{w4FormControl.errors.maxlength.requiredLength}}</span>
-  <span *ngIf="w4FormControl.errors.pattern" class="help-block">Valor no valido</span>
-  <ng-content>
-
-  </ng-content>
-</div>

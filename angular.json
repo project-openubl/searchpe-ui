@@ -3,11 +3,11 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "searchp-ui": {
+    "searchpe-ui": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
-      "prefix": "w4",
+      "prefix": "app",
       "schematics": {
         "@schematics/angular:component": {
           "styleext": "scss"
@@ -17,24 +17,24 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/searchp-ui",
+            "outputPath": "dist/searchpe-ui",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/config",
+              "src/config-local"
             ],
             "styles": [
+              "src/styles.scss",
               "node_modules/patternfly/dist/css/patternfly.min.css",
               "node_modules/patternfly/dist/css/patternfly-additions.min.css",
-              "node_modules/patternfly-ng/dist/css/patternfly-ng.min.css",
-              "src/styles.scss"
+              "node_modules/patternfly-ng/dist/css/patternfly-ng.min.css"
             ],
-            "scripts": [
-              "node_modules/patternfly/dist/js/patternfly-settings.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -59,18 +59,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "searchp-ui:build"
+            "browserTarget": "searchpe-ui:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "searchp-ui:build:production"
+              "browserTarget": "searchpe-ui:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "searchp-ui:build"
+            "browserTarget": "searchpe-ui:build"
           }
         },
         "test": {
@@ -104,7 +104,7 @@
         }
       }
     },
-    "searchp-ui-e2e": {
+    "searchpe-ui-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -112,11 +112,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "searchp-ui:serve"
+            "devServerTarget": "searchpe-ui:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "searchp-ui:serve:production"
+              "devServerTarget": "searchpe-ui:serve:production"
             }
           }
         },
@@ -132,5 +132,5 @@
       }
     }
   },
-  "defaultProject": "searchp-ui"
+  "defaultProject": "searchpe-ui"
 }

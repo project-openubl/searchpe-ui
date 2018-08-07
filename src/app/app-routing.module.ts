@@ -1,14 +1,30 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'search', pathMatch: 'full' },
-  { path: 'search', loadChildren: './ui/ui.module#SearchpUIModule' },
-  { path: '**', redirectTo: '' }
+  {
+    path: '',
+    loadChildren: './company/company.module#CompanyModule',
+    pathMatch: 'full'
+  },
+
+  // Error Pages
+  {
+    path: '_error',
+    loadChildren: './layout/error/error.module#ErrorModule',
+    data: {
+      title: 'Error'
+    }
+  },
+
+  {
+    path: '**',
+    redirectTo: '/_error'
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, useHash: false })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

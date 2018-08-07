@@ -1,27 +1,44 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
-import { MessageService } from './core/data/message.service';
+
+// Custom modules
+import { AboutModalModule } from './layout/about-modal/about-modal.module';
+import { NgxSearchpeModule } from './ngx/ngx-searchpe/searchpe.module';
+
+// Footer & Header
+import { HeaderComponent } from './layout/header/header.component';
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
+
+// Config
+import { searchpeUIConfigProvider } from './config/searchpe-ui-config.service';
+import { ApiLocatorService } from './config/api-locator.service';
+import { searchpeApiUrlProvider } from './config/searchpe-api.provider';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+
+    // Footer & Header
+    HeaderComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    SharedModule,
-    CoreModule
+
+    // Custom modules
+    AboutModalModule,
+    NgxSearchpeModule.forRoot()
   ],
-  providers: [MessageService],
+  providers: [
+    // Config
+    searchpeUIConfigProvider,
+    ApiLocatorService,
+    searchpeApiUrlProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
