@@ -18,6 +18,9 @@ import { searchpeUIConfigProvider } from './config/searchpe-ui-config.service';
 import { ApiLocatorService } from './config/api-locator.service';
 import { searchpeApiUrlProvider } from './config/searchpe-api.provider';
 
+// Bootstrap
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +36,10 @@ import { searchpeApiUrlProvider } from './config/searchpe-api.provider';
 
     // Custom modules
     AboutModalModule,
-    NgxSearchpeModule.forRoot()
+    NgxSearchpeModule.forRoot(),
+
+    // Bootstrap
+    BsDropdownModule.forRoot(),
   ],
   providers: [
     // Config

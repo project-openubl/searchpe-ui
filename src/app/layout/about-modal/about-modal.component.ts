@@ -28,13 +28,13 @@ export class AboutModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.aboutConfig = {
-      additionalInfo: 'Searchpe is a software registered on Goverment, for more information contact us.',
+      additionalInfo: 'Searchpe is a software registered by Wolsnut4, for more information contact us.',
       copyright: 'Trademark and Copyright Information',
       logoImageAlt: 'Patternfly Symbol',
       logoImageSrc: '//www.patternfly.org/assets/img/logo-alt.svg',
       title: 'Searchpe',
       productInfo: [
-        { name: 'Version', value: '1' }
+        { name: 'Version', value: '1.0.0.Final' }
       ]
     } as AboutModalConfig;
   }
