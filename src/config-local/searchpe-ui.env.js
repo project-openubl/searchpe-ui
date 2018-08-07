@@ -1,3 +1,3 @@
 window.SearchpeUIEnv = {
-  "searchpeApiUrl": "http://localhost:8081/auth"
+  "searchpeApiUrl": "http://localhost:8080/api"
 };

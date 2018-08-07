@@ -1,3 +1,48 @@
-<pfng-toolbar [config]="toolbarConfig"
-              (onFilterChange)="filterChanged($event)">
-</pfng-toolbar>
+<div class="row">
+  <div class="col-md-6">
+    <form role="form" class="search-pf has-button" (ngSubmit)="search()">
+      <div class="form-group has-clear">
+        <div class="search-pf-input-group">
+          <label for="search1" class="sr-only">Search</label>
+          <input id="search1" type="search" class="form-control" placeholder="Search" required [(ngModel)]="filterText" name="filterText">
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-default" type="submit">
+          <span class="fa fa-search"></span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<br/>
+
+<pfng-list [actionTemplate]="actionTemplate" [config]="listConfig" [items]="items" [itemTemplate]="itemTemplate" [expandTemplate]="expandTemplate">
+  <ng-template #itemTemplate let-item="item" let-index="index">
+    <div class="list-pf-left">
+      <span class="fa fa-plane list-pf-icon list-pf-icon-bordered list-pf-icon-small"></span>
+    </div>
+    <div class="list-pf-content-wrapper">
+      <div class="list-pf-main-content">
+        <div class="list-pf-title">{{item.razonSocial}}</div>
+        <div class="list-pf-description text-overflow-pf">{{item.ruc}}</div>
+      </div>
+      <div class="list-pf-additional-content">
+        <div>
+          <span class="pficon pficon-screen"></span>
+          <strong> Estado Contribuyente</strong> {{item.estadoContribuyente}}
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #actionTemplate let-item="item" let-index="index">
+    <pfng-action class="list-pf-actions" [config]="actionConfig" (onActionSelect)="handleAction($event, item)">
+    </pfng-action>
+  </ng-template>
+  <ng-template #expandTemplate let-item="item" let-index="index">
+    <p>{{item.ruc}}: {{item.razonSocial}}</p>
+    <app-company-basic-info [company]="item"></app-company-basic-info>
+  </ng-template>
+</pfng-list>
+
+<!-- <pfng-pagination [config]="paginationConfig" (onPageNumberChange)="handlePageNumber($event)" (onPageSizeChange)="handlePageSize($event)"></pfng-pagination> -->

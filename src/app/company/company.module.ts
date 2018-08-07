@@ -3,21 +3,22 @@ import { CommonModule } from '@angular/common';
 import { SearchComponent } from './search/search.component';
 import { CompanyRoutingModule } from './company-routing.module';
 
+import { FormsModule }   from '@angular/forms';
+
 //
+import { CompanyBasicInfoModule } from './company-basic-info/company-basic-info.module';
 import { ActionModule } from 'patternfly-ng/action';
-import { FilterModule } from 'patternfly-ng/filter';
-import { SortModule } from 'patternfly-ng/sort';
-import { ToolbarModule } from 'patternfly-ng/toolbar';
+import { ListModule } from 'patternfly-ng/list';
 
 @NgModule({
   imports: [
     CommonModule,
     CompanyRoutingModule,
+    FormsModule,
 
+    CompanyBasicInfoModule,
     ActionModule,
-    FilterModule,
-    SortModule,
-    ToolbarModule
+    ListModule
   ],
   declarations: [SearchComponent]
 })

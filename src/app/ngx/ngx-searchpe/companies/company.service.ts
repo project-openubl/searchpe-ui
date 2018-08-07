@@ -47,15 +47,11 @@ export class CompanyService {
       );
   }
 
-  /**
-   * Search space
-   * @param filterText Filter text
-   * @param limit limit of results
-   */
-  search(filterText: string, limit: number = 10): Observable<Company[]> {
+  search(filterText: string, first: number = 0, limit: number = 10): Observable<Company[]> {
     const url = this.companiesUrl;
     let params: HttpParams = new HttpParams();
     params = params.set('filterText', filterText);
+    params = params.set('first', first.toString());
     params = params.set('limit', limit.toString());
 
     return this.http.get(url, { params: params, headers: this.headers })
