@@ -12,7 +12,9 @@ import { NgxSearchpeModule } from './ngx/ngx-searchpe/searchpe.module';
 import { HeaderComponent } from './layout/header/header.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 
-// Ngx
+// Config
+import { searchpeUIConfigProvider } from './config/searchpe-ui-config.service';
+import { ApiLocatorService } from './config/api-locator.service';
 import { searchpeApiUrlProvider } from './config/searchpe-api.provider';
 
 @NgModule({
@@ -32,7 +34,9 @@ import { searchpeApiUrlProvider } from './config/searchpe-api.provider';
     NgxSearchpeModule.forRoot()
   ],
   providers: [
-    //
+    // Config
+    searchpeUIConfigProvider,
+    ApiLocatorService,
     searchpeApiUrlProvider
   ],
   bootstrap: [AppComponent]

@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { throwError } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
 import { SEARCHPE_API_URL } from '../api/searchpe-api';
 import { Company } from '../models/company';
@@ -74,7 +75,7 @@ export class CompanyService {
    */
 
   private handleError(error: any) {
-    return Observable.throw(error.message || error);
+    return throwError(error.message || error);
   }
 
 }
