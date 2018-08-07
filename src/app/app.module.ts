@@ -11,6 +11,7 @@ import { NgxSearchpeModule } from './ngx/ngx-searchpe/searchpe.module';
 // Footer & Header
 import { HeaderComponent } from './layout/header/header.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
+import { FooterComponent } from './layout/footer/footer.component';
 
 // Config
 import { searchpeUIConfigProvider } from './config/searchpe-ui-config.service';
@@ -23,7 +24,8 @@ import { searchpeApiUrlProvider } from './config/searchpe-api.provider';
 
     // Footer & Header
     HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
