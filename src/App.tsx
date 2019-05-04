@@ -1,26 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
+import { withRouter } from 'react-router-dom';
 import './App.css';
+import { Routes } from './Routes';
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-};
+class App extends React.Component<any> {
+  constructor(props: PropTypes) {
+    super(props);
+  }
 
-export default App;
+  render() {
+    return <Routes childProps={this.props} />;
+  }
+}
+
+interface PropTypes {
+  history: any;
+}
+
+// const App: React.FC = () => {
+//   return (
+//     <div>
+//       <BackgroundImage />
+//       <div className="pf-c-page" id="page-layout-default-nav">
+//         <a className="pf-c-skip-to-content pf-c-button pf-m-primary" href="#main-content-page-layout-default-nav">
+//           Skip to content
+//         </a>
+//         <Header />
+//         <Sidebar />
+//       </div>
+//     </div>
+//   );
+// };
+
+export default withRouter(App);
