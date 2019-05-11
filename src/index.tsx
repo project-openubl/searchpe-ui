@@ -1,19 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import './index.css';
+import { Provider } from 'react-redux';
+import { init } from './Store';
 import App from './App';
+import logger from 'redux-logger';
 import * as serviceWorker from './serviceWorker';
-
-import './custom.scss';
-import getBaseName from './Utilities/getBaseName';
+import './index.css';
+import "@patternfly/patternfly/patternfly.css";
+import "@patternfly/patternfly/patternfly-addons.css";
 
 ReactDOM.render(
-  <BrowserRouter basename={getBaseName(window.location.pathname)}>
-    <App />
-  </BrowserRouter>,
-
-  document.getElementById('root')
+    <Provider store={init(logger).getStore()}>
+        <BrowserRouter basename='/'>
+            <App />
+        </BrowserRouter>
+    </Provider>,
+    document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
