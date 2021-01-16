@@ -12,17 +12,7 @@ export enum Paths {
   base = "/",
   notFound = "/not-found",
 
-  companyList = "/companies",
-  newCompany = "/companies/~new",
+  contribuyenteList = "/contribuyentes",
 
-  documentList = "/documents",
-  newDocument = "/documents/~new",
-}
-
-export interface OptionalCompanyRoute {
-  company?: string;
-}
-
-export interface CompanytRoute {
-  company: string;
+  versionList = "/versions",
 }
