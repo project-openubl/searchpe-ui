@@ -28,33 +28,33 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         browser: [chrome, firefox]
-    services:
-      backend-db:
-        image: postgres:13.1
-        ports:
-          - 5432:5432
-        env:
-          POSTGRES_USER: user
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: searchpe_db
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-      backend:
-        image: quay.io/projectopenubl/searchpe:master
-        ports:
-          - 8080:8080
-        env:
-          QUARKUS_DATASOURCE_USERNAME: user
-          QUARKUS_DATASOURCE_PASSWORD: password
-          QUARKUS_DATASOURCE_JDBC_URL: jdbc:postgresql://backend-db:5432/searchpe_db          
-        options: >-
-          --health-cmd "curl --fail http://localhost:8080 || exit 1"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5    
+    # services:
+    #   backend-db:
+    #     image: postgres:13.1
+    #     ports:
+    #       - 5432:5432
+    #     env:
+    #       POSTGRES_USER: user
+    #       POSTGRES_PASSWORD: password
+    #       POSTGRES_DB: searchpe_db
+    #     options: >-
+    #       --health-cmd pg_isready
+    #       --health-interval 10s
+    #       --health-timeout 5s
+    #       --health-retries 5
+    #   backend:
+    #     image: quay.io/projectopenubl/searchpe:master
+    #     ports:
+    #       - 8080:8080
+    #     env:
+    #       QUARKUS_DATASOURCE_USERNAME: user
+    #       QUARKUS_DATASOURCE_PASSWORD: password
+    #       QUARKUS_DATASOURCE_JDBC_URL: jdbc:postgresql://backend-db:5432/searchpe_db          
+    #     options: >-
+    #       --health-cmd "curl --fail http://localhost:8080 || exit 1"
+    #       --health-interval 10s
+    #       --health-timeout 5s
+    #       --health-retries 5
     steps:
       - name: Checkout
         uses: actions/checkout@v2     
