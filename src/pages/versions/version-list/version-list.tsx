@@ -27,6 +27,7 @@ import {
   AppTableWithControls,
   ConditionalRender,
   SimplePageSection,
+  VersionStatusIcon,
 } from "shared/components";
 import {
   useFetchVersions,
@@ -78,7 +79,7 @@ const itemsToRow = (items: Version[]) => {
         title: <Moment fromNow>{item.updatedAt}</Moment>,
       },
       {
-        title: item.status,
+        title: <VersionStatusIcon value={item.status} />,
       },
     ],
   }));

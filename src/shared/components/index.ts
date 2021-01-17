@@ -4,3 +4,4 @@ export { AppTableWithControls } from "./app-table-with-controls";
 export { ConditionalRender } from "./conditional-render";
 export { SimplePageSection } from "./simple-page-section";
 export { SimplePagination } from "./simple-pagination";
+export { VersionStatusIcon } from "./version-status";
