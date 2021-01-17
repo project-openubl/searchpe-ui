@@ -1,46 +1,39 @@
-# Getting Started with Create React App
+![CI](https://github.com/project-openubl/searchpe-ui/workflows/CI/badge.svg)
+[![Docker Repository on Quay](https://quay.io/repository/projectopenubl/searchpe-ui/status "Docker Repository on Quay")](https://quay.io/repository/projectopenubl/searchpe-ui)
+[![License](https://img.shields.io/badge/License-EPL%202.0-green.svg)](https://opensource.org/licenses/EPL-2.0)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![Project Chat](https://img.shields.io/badge/zulip-join_chat-brightgreen.svg?style=for-the-badge&logo=zulip)](https://projectopenubl.zulipchat.com/)
 
-## Available Scripts
+# Searchpe UI
 
-In the project directory, you can run:
+UI application for the searchpe project.
 
-### `yarn start`
+## Development
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+To start in development mode follow the next steps:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Start the backend DB
 
-### `yarn test`
+Execute:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```shell
+docker run -p 5432:5432 -e POSTGRES_USER=searchpe_username -e POSTGRES_PASSWORD=searchpe_password -e POSTGRES_DB=searchpe_db postgres:13.1
+```
 
-### `yarn build`
+### Star the backend
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+You need to clone the backend server and then start it using:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```shell
+./mvnw quarkus:dev
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Start the UI
 
-### `yarn eject`
+You can start the UI executing:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```shell
+yarn start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+You should be able to open http://localhost:3000 and start working on the UI.
