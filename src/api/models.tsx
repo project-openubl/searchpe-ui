@@ -42,3 +42,10 @@ export interface Version {
   updatedAt: number;
   status: VersionStatus;
 }
+
+export interface Contribuyente {
+  ruc: string;
+  razonSocial: string;
+  estadoContribuyente: string;
+  ubigeo: string;
+}
