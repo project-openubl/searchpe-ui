@@ -35,7 +35,6 @@ describe("useFetchVersions", () => {
     const data: Version[] = [
       {
         id: 1,
-        active: true,
         status: "COMPLETED",
         createdAt: new Date().getTime(),
         updatedAt: new Date().getTime(),

@@ -7,10 +7,13 @@ import {
   CheckCircleIcon,
   ErrorCircleOIcon,
 } from "@patternfly/react-icons";
+import { Spinner } from "@patternfly/react-core";
+
 import {
   global_success_color_200 as globalSuccessColor200,
   global_danger_color_200 as globalDangerColor200,
 } from "@patternfly/react-tokens";
+
 import { VersionStatus } from "api/models";
 
 export interface VersionStatusIconProps {
@@ -41,6 +44,8 @@ export const mapStateToIcon = (state: VersionStatus) => {
       return <CheckCircleIcon color={globalSuccessColor200.value} />;
     case "ERROR":
       return <ErrorCircleOIcon color={globalDangerColor200.value} />;
+    case "DELETING":
+      return <Spinner size="md" />;
     default:
       return "Unknown";
   }
@@ -60,6 +65,8 @@ export const mapStateToLabel = (state: VersionStatus) => {
       return "Completed";
     case "ERROR":
       return "Failed";
+    case "DELETING":
+      return "Deleting";
     default:
       return "Unknown";
   }

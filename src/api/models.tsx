@@ -33,12 +33,12 @@ export type VersionStatus =
   | "UNZIPPING"
   | "IMPORTING"
   | "ERROR"
-  | "COMPLETED";
+  | "COMPLETED"
+  | "DELETING";
 
 export interface Version {
   id: number;
   createdAt: number;
   updatedAt: number;
   status: VersionStatus;
-  active: boolean;
 }
