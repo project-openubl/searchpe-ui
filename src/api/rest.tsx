@@ -51,3 +51,7 @@ export const getContribuyentes = (
 
   return APIClient.get(`${CONTRIBUYENTES}?${query.join("&")}`);
 };
+
+export const getContribuyente = (ruc: string): AxiosPromise<Contribuyente> => {
+  return APIClient.get(`${CONTRIBUYENTES}/${ruc}`);
+};

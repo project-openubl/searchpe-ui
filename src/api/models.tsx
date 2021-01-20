@@ -48,4 +48,15 @@ export interface Contribuyente {
   razonSocial: string;
   estadoContribuyente: string;
   ubigeo: string;
+  condicionDomicilio: string;
+  tipoVia: string;
+  nombreVia: string;
+  codigoZona: string;
+  tipoZona: string;
+  numero: string;
+  interior: string;
+  lote: string;
+  departamento: string;
+  manzana: string;
+  kilometro: string;
 }

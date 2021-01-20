@@ -12,7 +12,7 @@ export enum Paths {
   base = "/",
   notFound = "/not-found",
 
+  consultaRuc = "/consulta-ruc",
   contribuyenteList = "/contribuyentes",
-
   versionList = "/versions",
 }
