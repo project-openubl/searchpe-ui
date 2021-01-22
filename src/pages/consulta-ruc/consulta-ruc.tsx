@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
-import {
-  AppPlaceholder,
-  ConditionalRender,
-  SimplePageSection,
-} from "shared/components";
+import { useHistory } from "react-router-dom";
+
 import {
   Bullseye,
   Card,
@@ -21,11 +18,16 @@ import {
 } from "@patternfly/react-core";
 import { SearchIcon } from "@patternfly/react-icons";
 
-import { SearchInput, Welcome } from "shared/components";
+import {
+  AppPlaceholder,
+  ConditionalRender,
+  SimplePageSection,
+  SearchInput,
+  Welcome,
+  ContribuyenteDetails,
+} from "shared/components";
 import { useFetchContribuyente, useFetchVersions } from "shared/hooks";
 
-import { ContribuyenteDetails } from "./components/contribuyente-details";
-import { useHistory } from "react-router-dom";
 import { Paths } from "Paths";
 
 export const ConsultaRuc: React.FC = () => {
@@ -49,7 +51,9 @@ export const ConsultaRuc: React.FC = () => {
   }, [fetchVersions]);
 
   const handleOnSearch = (ruc: string) => {
-    fetchContribuyente(ruc);
+    if (ruc.trim().length > 0) {
+      fetchContribuyente(ruc);
+    }
   };
 
   const handleOnViewVersion = () => {

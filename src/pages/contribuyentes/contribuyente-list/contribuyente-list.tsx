@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { RouteComponentProps, useHistory } from "react-router-dom";
 
 import {
@@ -33,6 +33,8 @@ import {
 import { useFetchContribuyentes, useTableControls } from "shared/hooks";
 
 import { Paths } from "Paths";
+
+import { DetailsModal } from "./components/details-modal/details-modal";
 
 const columns: ICell[] = [
   { title: "RUC" },
@@ -82,6 +84,8 @@ export interface ContribuyenteListProps extends RouteComponentProps {}
 export const ContribuyenteList: React.FC<ContribuyenteListProps> = () => {
   const history = useHistory();
 
+  const [currentRow, setCurrentRow] = useState<Contribuyente>();
+
   const {
     contribuyentes,
     isFetching,
@@ -121,10 +125,14 @@ export const ContribuyenteList: React.FC<ContribuyenteListProps> = () => {
         extraData: IExtraData
       ) => {
         const row: Contribuyente = getRow(rowData);
-        console.log(row);
+        setCurrentRow(row);
       },
     },
   ];
+
+  const handleOnDetailsModalClose = () => {
+    setCurrentRow(undefined);
+  };
 
   const handleOnWelcomePrimaryAction = () => {
     history.push(Paths.versionList);
@@ -182,6 +190,7 @@ export const ContribuyenteList: React.FC<ContribuyenteListProps> = () => {
           />
         </PageSection>
       </ConditionalRender>
+      <DetailsModal value={currentRow} onClose={handleOnDetailsModalClose} />
     </>
   );
 };
