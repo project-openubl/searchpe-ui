@@ -38,9 +38,10 @@ export type VersionStatus =
 
 export interface Version {
   id: number;
-  createdAt: number;
-  updatedAt: number;
+  createdAt: string;
+  updatedAt: string;
   status: VersionStatus;
+  records: number;
 }
 
 export interface Contribuyente {

@@ -6,3 +6,4 @@ export { SearchInput } from "./search-input";
 export { SimplePageSection } from "./simple-page-section";
 export { SimplePagination } from "./simple-pagination";
 export { VersionStatusIcon } from "./version-status";
+export { Welcome } from "./welcome";

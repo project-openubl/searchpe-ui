@@ -2,7 +2,7 @@ import { useCallback, useReducer } from "react";
 import { AxiosError } from "axios";
 import { ActionType, createAsyncAction, getType } from "typesafe-actions";
 
-import { getVersions } from "api/rest";
+import { getVersion } from "api/rest";
 import { Version } from "api/models";
 
 export const {
@@ -10,20 +10,20 @@ export const {
   success: fetchSuccess,
   failure: fetchFailure,
 } = createAsyncAction(
-  "useFetchVersions/fetch/request",
-  "useFetchVersions/fetch/success",
-  "useFetchVersions/fetch/failure"
-)<void, Version[], AxiosError>();
+  "useFetchVersion/fetch/request",
+  "useFetchVersion/fetch/success",
+  "useFetchVersion/fetch/failure"
+)<void, Version, AxiosError>();
 
 type State = Readonly<{
   isFetching: boolean;
-  versions?: Version[];
+  version?: Version;
   fetchError?: AxiosError;
 }>;
 
 const defaultState: State = {
   isFetching: false,
-  versions: undefined,
+  version: undefined,
   fetchError: undefined,
 };
 
@@ -50,7 +50,7 @@ const reducer = (state: State, action: Action): State => {
         ...state,
         isFetching: false,
         fetchError: undefined,
-        versions: action.payload,
+        version: action.payload,
       };
     case getType(fetchFailure):
       return {
@@ -63,58 +63,34 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
-const delay = (t: number) => new Promise((resolve) => setTimeout(resolve, t));
-
-export interface FetchVersionsParams {
-  watch: boolean;
-  active?: boolean;
-}
-
 export interface IState {
-  versions?: Version[];
+  version?: Version;
   isFetching: boolean;
   fetchError?: AxiosError;
-  fetchVersions: (params: FetchVersionsParams) => void;
+  fetchVersion: (name: number) => void;
 }
 
-export const useFetchVersions = (
-  defaultIsFetching: boolean = false
-): IState => {
+export const useFetchVersion = (defaultIsFetching: boolean = false): IState => {
   const [state, dispatch] = useReducer(reducer, defaultIsFetching, initReducer);
 
-  const fetchVersions = useCallback((params: FetchVersionsParams) => {
+  const fetchVersion = useCallback((name: number) => {
     dispatch(fetchRequest());
 
-    getVersions(params.active)
+    getVersion(name)
       .then(({ data }) => {
-        if (params.watch) {
-          const flag = data.every(
-            (f) => f.status === "COMPLETED" || f.status === "ERROR"
-          );
-          if (!flag) {
-            dispatch(fetchSuccess(data));
-
-            delay(5000).then(() => {
-              fetchVersions(params);
-            });
-          } else {
-            dispatch(fetchSuccess(data));
-          }
-        } else {
-          dispatch(fetchSuccess(data));
-        }
+        dispatch(fetchSuccess(data));
       })
-      .catch((error) => {
+      .catch((error: AxiosError) => {
         dispatch(fetchFailure(error));
       });
   }, []);
 
   return {
-    versions: state.versions,
+    version: state.version,
     isFetching: state.isFetching,
     fetchError: state.fetchError,
-    fetchVersions: fetchVersions,
+    fetchVersion,
   };
 };
 
-export default useFetchVersions;
+export default useFetchVersion;

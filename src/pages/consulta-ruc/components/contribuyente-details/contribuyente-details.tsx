@@ -43,16 +43,6 @@ export const ContribuyenteDetails: React.FC<ContribuyenteDetailsProps> = ({
         </DescriptionListDescription>
       </DescriptionListGroup>
       <DescriptionListGroup>
-        <DescriptionListTerm>Tipo via</DescriptionListTerm>
-        <DescriptionListDescription>{value.tipoVia}</DescriptionListDescription>
-      </DescriptionListGroup>
-      <DescriptionListGroup>
-        <DescriptionListTerm>Nombre via</DescriptionListTerm>
-        <DescriptionListDescription>
-          {value.nombreVia}
-        </DescriptionListDescription>
-      </DescriptionListGroup>
-      <DescriptionListGroup>
         <DescriptionListTerm>Código zona</DescriptionListTerm>
         <DescriptionListDescription>
           {value.codigoZona}
@@ -65,8 +55,26 @@ export const ContribuyenteDetails: React.FC<ContribuyenteDetailsProps> = ({
         </DescriptionListDescription>
       </DescriptionListGroup>
       <DescriptionListGroup>
+        <DescriptionListTerm>Tipo via</DescriptionListTerm>
+        <DescriptionListDescription>{value.tipoVia}</DescriptionListDescription>
+      </DescriptionListGroup>
+      <DescriptionListGroup>
+        <DescriptionListTerm>Nombre via</DescriptionListTerm>
+        <DescriptionListDescription>
+          {value.nombreVia}
+        </DescriptionListDescription>
+      </DescriptionListGroup>
+      <DescriptionListGroup>
         <DescriptionListTerm>Número</DescriptionListTerm>
         <DescriptionListDescription>{value.numero}</DescriptionListDescription>
+      </DescriptionListGroup>
+      <DescriptionListGroup>
+        <DescriptionListTerm>Manzana</DescriptionListTerm>
+        <DescriptionListDescription>{value.manzana}</DescriptionListDescription>
+      </DescriptionListGroup>
+      <DescriptionListGroup>
+        <DescriptionListTerm>Lote</DescriptionListTerm>
+        <DescriptionListDescription>{value.lote}</DescriptionListDescription>
       </DescriptionListGroup>
       <DescriptionListGroup>
         <DescriptionListTerm>Interior</DescriptionListTerm>
@@ -75,18 +83,10 @@ export const ContribuyenteDetails: React.FC<ContribuyenteDetailsProps> = ({
         </DescriptionListDescription>
       </DescriptionListGroup>
       <DescriptionListGroup>
-        <DescriptionListTerm>Lote</DescriptionListTerm>
-        <DescriptionListDescription>{value.lote}</DescriptionListDescription>
-      </DescriptionListGroup>
-      <DescriptionListGroup>
         <DescriptionListTerm>Departamento</DescriptionListTerm>
         <DescriptionListDescription>
           {value.departamento}
         </DescriptionListDescription>
-      </DescriptionListGroup>
-      <DescriptionListGroup>
-        <DescriptionListTerm>Manzana</DescriptionListTerm>
-        <DescriptionListDescription>{value.manzana}</DescriptionListDescription>
       </DescriptionListGroup>
       <DescriptionListGroup>
         <DescriptionListTerm>Kilómetro</DescriptionListTerm>

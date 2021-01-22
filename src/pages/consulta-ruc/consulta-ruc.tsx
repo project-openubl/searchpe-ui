@@ -1,34 +1,70 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   AppPlaceholder,
   ConditionalRender,
   SimplePageSection,
 } from "shared/components";
 import {
+  Bullseye,
   Card,
   CardBody,
+  EmptyState,
+  EmptyStateBody,
+  EmptyStateIcon,
+  EmptyStateVariant,
   PageSection,
+  Title,
   Toolbar,
   ToolbarContent,
   ToolbarGroup,
   ToolbarItem,
 } from "@patternfly/react-core";
+import { SearchIcon } from "@patternfly/react-icons";
 
-import { SearchInput } from "shared/components";
-import { useFetchContribuyente } from "shared/hooks";
+import { SearchInput, Welcome } from "shared/components";
+import { useFetchContribuyente, useFetchVersions } from "shared/hooks";
+
 import { ContribuyenteDetails } from "./components/contribuyente-details";
+import { useHistory } from "react-router-dom";
+import { Paths } from "Paths";
 
 export const ConsultaRuc: React.FC = () => {
+  const history = useHistory();
+
+  const {
+    versions,
+    isFetching: isFetchingVersions,
+    fetchVersions,
+  } = useFetchVersions();
+
   const {
     contribuyente,
-    isFetching,
-    fetchError,
+    isFetching: isFetchingContribuyente,
+    fetchError: contribuyenteFetchError,
     fetchContribuyente,
   } = useFetchContribuyente();
+
+  useEffect(() => {
+    fetchVersions({ watch: false, active: true });
+  }, [fetchVersions]);
 
   const handleOnSearch = (ruc: string) => {
     fetchContribuyente(ruc);
   };
+
+  const handleOnViewVersion = () => {
+    history.push(Paths.versionList);
+  };
+
+  if (isFetchingVersions || (versions && versions.length === 0)) {
+    return (
+      <Bullseye>
+        <ConditionalRender when={isFetchingVersions} then={<AppPlaceholder />}>
+          <Welcome onPrimaryAction={handleOnViewVersion} />
+        </ConditionalRender>
+      </Bullseye>
+    );
+  }
 
   return (
     <>
@@ -51,8 +87,24 @@ export const ConsultaRuc: React.FC = () => {
           </Toolbar>
           <Card>
             <CardBody>
-              <ConditionalRender when={isFetching} then={<AppPlaceholder />}>
-                <ConditionalRender when={!!fetchError} then={<p>Not found</p>}>
+              <ConditionalRender
+                when={isFetchingContribuyente}
+                then={<AppPlaceholder />}
+              >
+                <ConditionalRender
+                  when={!!contribuyenteFetchError}
+                  then={
+                    <EmptyState variant={EmptyStateVariant.small}>
+                      <EmptyStateIcon icon={SearchIcon} />
+                      <Title headingLevel="h2" size="lg">
+                        No results found
+                      </Title>
+                      <EmptyStateBody>
+                        No results match the filter criteria.
+                      </EmptyStateBody>
+                    </EmptyState>
+                  }
+                >
                   {contribuyente && (
                     <ContribuyenteDetails value={contribuyente} />
                   )}

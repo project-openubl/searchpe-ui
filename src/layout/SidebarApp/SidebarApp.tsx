@@ -12,17 +12,17 @@ export const SidebarApp: React.FC = () => {
         <NavList>
           <NavItem>
             <NavLink to={Paths.consultaRuc} activeClassName="pf-m-current">
-              Search
+              RUC
             </NavLink>
           </NavItem>
-          {/* <NavItem>
+          <NavItem>
             <NavLink
               to={Paths.contribuyenteList}
               activeClassName="pf-m-current"
             >
-              Contribuyentes
+              Search
             </NavLink>
-          </NavItem> */}
+          </NavItem>
           <NavItem>
             <NavLink to={Paths.versionList} activeClassName="pf-m-current">
               Versions
