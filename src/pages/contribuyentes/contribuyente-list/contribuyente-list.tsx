@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { RouteComponentProps, useHistory } from "react-router-dom";
 
 import {
@@ -10,14 +10,6 @@ import {
   PageSection,
   Title,
 } from "@patternfly/react-core";
-import { AddCircleOIcon } from "@patternfly/react-icons";
-
-import {
-  AppPlaceholder,
-  AppTableWithControls,
-  ConditionalRender,
-  SimplePageSection,
-} from "shared/components";
 import {
   IActions,
   ICell,
@@ -27,23 +19,26 @@ import {
   sortable,
   SortByDirection,
 } from "@patternfly/react-table";
-
-import { useDispatch } from "react-redux";
-import { alertActions } from "store/alert";
+import { AddCircleOIcon } from "@patternfly/react-icons";
 
 import { Contribuyente, PageQuery, SortByQuery } from "api/models";
+
+import {
+  Welcome,
+  AppPlaceholder,
+  AppTableWithControls,
+  ConditionalRender,
+  SimplePageSection,
+} from "shared/components";
 import { useFetchContribuyentes, useTableControls } from "shared/hooks";
 
-import { createVersion } from "api/rest";
-
 import { Paths } from "Paths";
-import { getAxiosErrorMessage } from "utils/modelUtils";
 
-import { Welcome } from "./components/welcome";
+import { DetailsModal } from "./components/details-modal/details-modal";
 
 const columns: ICell[] = [
-  { title: "RUC", transforms: [sortable] },
-  { title: "Razón social" },
+  { title: "RUC" },
+  { title: "Razón social", transforms: [sortable] },
   { title: "Estado contribuyente" },
 ];
 
@@ -54,8 +49,6 @@ const columnIndexToField = (
   extraData: IExtraColumnData
 ) => {
   switch (index) {
-    case 0:
-      return "ruc";
     case 1:
       return "razonSocial";
     default:
@@ -89,8 +82,9 @@ const itemsToRow = (items: Contribuyente[]) => {
 export interface ContribuyenteListProps extends RouteComponentProps {}
 
 export const ContribuyenteList: React.FC<ContribuyenteListProps> = () => {
-  const dispatch = useDispatch();
   const history = useHistory();
+
+  const [currentRow, setCurrentRow] = useState<Contribuyente>();
 
   const {
     contribuyentes,
@@ -131,21 +125,17 @@ export const ContribuyenteList: React.FC<ContribuyenteListProps> = () => {
         extraData: IExtraData
       ) => {
         const row: Contribuyente = getRow(rowData);
-        console.log(row);
+        setCurrentRow(row);
       },
     },
   ];
 
-  const handleOnNewVersion = () => {
-    createVersion()
-      .then(() => {
-        history.push(Paths.versionList);
-      })
-      .catch((error) => {
-        dispatch(
-          alertActions.addAlert("danger", "Error", getAxiosErrorMessage(error))
-        );
-      });
+  const handleOnDetailsModalClose = () => {
+    setCurrentRow(undefined);
+  };
+
+  const handleOnWelcomePrimaryAction = () => {
+    history.push(Paths.versionList);
   };
 
   if (
@@ -154,7 +144,7 @@ export const ContribuyenteList: React.FC<ContribuyenteListProps> = () => {
   ) {
     return (
       <Bullseye>
-        <Welcome onPrimaryAction={handleOnNewVersion} />
+        <Welcome onPrimaryAction={handleOnWelcomePrimaryAction} />
       </Bullseye>
     );
   }
@@ -166,8 +156,8 @@ export const ContribuyenteList: React.FC<ContribuyenteListProps> = () => {
         then={<AppPlaceholder />}
       >
         <SimplePageSection
-          title="Contribuyentes"
-          description="Contribuyentes are the entities extracted from SUNAT."
+          title="Search by 'Razón social'"
+          description="Write the name of the entity you are searching for and then press enter."
         />
         <PageSection>
           <AppTableWithControls
@@ -200,6 +190,7 @@ export const ContribuyenteList: React.FC<ContribuyenteListProps> = () => {
           />
         </PageSection>
       </ConditionalRender>
+      <DetailsModal value={currentRow} onClose={handleOnDetailsModalClose} />
     </>
   );
 };

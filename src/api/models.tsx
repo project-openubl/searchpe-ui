@@ -38,9 +38,10 @@ export type VersionStatus =
 
 export interface Version {
   id: number;
-  createdAt: number;
-  updatedAt: number;
+  createdAt: string;
+  updatedAt: string;
   status: VersionStatus;
+  records: number;
 }
 
 export interface Contribuyente {
@@ -48,4 +49,15 @@ export interface Contribuyente {
   razonSocial: string;
   estadoContribuyente: string;
   ubigeo: string;
+  condicionDomicilio: string;
+  tipoVia: string;
+  nombreVia: string;
+  codigoZona: string;
+  tipoZona: string;
+  numero: string;
+  interior: string;
+  lote: string;
+  departamento: string;
+  manzana: string;
+  kilometro: string;
 }

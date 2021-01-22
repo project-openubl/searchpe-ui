@@ -18,9 +18,17 @@ exports[`Test snapshot 1`] = `
         <NavItem>
           <NavLink
             activeClassName="pf-m-current"
+            to="/consulta-ruc"
+          >
+            RUC
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            activeClassName="pf-m-current"
             to="/contribuyentes"
           >
-            Contribuyentes
+            Search
           </NavLink>
         </NavItem>
         <NavItem>

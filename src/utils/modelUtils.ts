@@ -8,3 +8,11 @@ export const getAxiosErrorMessage = (axiosError: AxiosError) => {
   }
   return axiosError.message;
 };
+
+export const formatNumber = (value: number, fractionDigits = 2) => {
+  return value.toLocaleString("en", {
+    style: "decimal",
+    minimumFractionDigits: fractionDigits,
+    maximumFractionDigits: fractionDigits,
+  });
+};

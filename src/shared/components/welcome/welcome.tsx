@@ -16,17 +16,18 @@ export interface WelcomeProps {
 
 export const Welcome: React.FC<WelcomeProps> = ({ onPrimaryAction }) => {
   return (
-    <EmptyState variant={EmptyStateVariant.large}>
+    <EmptyState variant={EmptyStateVariant.small}>
       <EmptyStateIcon icon={RocketIcon} />
       <Title headingLevel="h4" size="lg">
         Welcome to Searchpe
       </Title>
       <EmptyStateBody>
-        Searchpe helps you consume the data exposed by the SUNAT through the
-        'padrón reducido'.
+        Searchpe helps you to consume the data exposed by the SUNAT through the
+        'padrón reducido'. To start searching data you first need to have at
+        least one valid <strong>Version</strong>
       </EmptyStateBody>
       <Button variant="primary" onClick={onPrimaryAction}>
-        Create new version
+        Go to Versions
       </Button>
       <EmptyStateSecondaryActions>
         To learn more, visit the

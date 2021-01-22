@@ -12,8 +12,12 @@ import {
 export const VERSIONS = "/versions";
 export const CONTRIBUYENTES = "/contribuyentes";
 
-export const getVersions = (): AxiosPromise<Version[]> => {
-  return APIClient.get(VERSIONS);
+export const getVersions = (active?: boolean): AxiosPromise<Version[]> => {
+  if (active === true || active === false) {
+    return APIClient.get(`${VERSIONS}?active=${active}`);
+  } else {
+    return APIClient.get(VERSIONS);
+  }
 };
 
 export const deleteVersion = (versionId: number): AxiosPromise => {
@@ -35,13 +39,17 @@ export const getContribuyentes = (
   }
 
   const params = {
-    filterText,
     offset: (pagination.page - 1) * pagination.perPage,
     limit: pagination.perPage,
     sort_by: sortByQuery,
   };
 
   const query: string[] = [];
+
+  if (filterText) {
+    query.push(`filterText=${filterText}`);
+  }
+
   Object.keys(params).forEach((key) => {
     const value = (params as any)[key];
     if (value !== undefined) {
@@ -50,4 +58,12 @@ export const getContribuyentes = (
   });
 
   return APIClient.get(`${CONTRIBUYENTES}?${query.join("&")}`);
+};
+
+export const getVersion = (id: number): AxiosPromise<Version> => {
+  return APIClient.get(`${VERSIONS}/${id}`);
+};
+
+export const getContribuyente = (ruc: string): AxiosPromise<Contribuyente> => {
+  return APIClient.get(`${CONTRIBUYENTES}/${ruc}`);
 };

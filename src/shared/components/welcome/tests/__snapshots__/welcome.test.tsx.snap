@@ -2,7 +2,7 @@
 
 exports[`Welcome Renders without crashing 1`] = `
 <EmptyState
-  variant="large"
+  variant="small"
 >
   <EmptyStateIcon
     icon={[Function]}
@@ -14,13 +14,16 @@ exports[`Welcome Renders without crashing 1`] = `
     Welcome to Searchpe
   </Title>
   <EmptyStateBody>
-    Searchpe helps you consume the data exposed by the SUNAT through the 'padrón reducido'.
+    Searchpe helps you to consume the data exposed by the SUNAT through the 'padrón reducido'. To start searching data you first need to have at least one valid 
+    <strong>
+      Version
+    </strong>
   </EmptyStateBody>
   <Button
     onClick={[Function]}
     variant="primary"
   >
-    Create new version
+    Go to Versions
   </Button>
   <EmptyStateSecondaryActions>
     To learn more, visit the

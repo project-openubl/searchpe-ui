@@ -40,17 +40,18 @@ import {
   useTableControlsOffline,
 } from "shared/hooks";
 
-import { Version } from "api/models";
 import { useDispatch } from "react-redux";
 import { deleteDialogActions } from "store/deleteDialog";
 import { alertActions } from "store/alert";
-import { getAxiosErrorMessage } from "utils/modelUtils";
+
 import { createVersion } from "api/rest";
+import { Version } from "api/models";
+import { formatNumber, getAxiosErrorMessage } from "utils/modelUtils";
 
 const columns: ICell[] = [
   { title: "Id", transforms: [sortable] },
   { title: "Created", transforms: [sortable] },
-  { title: "Updated", transforms: [sortable] },
+  { title: "Records" },
   { title: "Status" },
 ];
 
@@ -62,7 +63,9 @@ const columnIndexToField = (
 ) => {
   switch (index) {
     case 0:
-      return "name";
+      return "id";
+    case 1:
+      return "createdAt";
     default:
       throw new Error("Invalid column index=" + index);
   }
@@ -85,7 +88,7 @@ const itemsToRow = (items: Version[]) => {
         title: <Moment fromNow>{item.createdAt}</Moment>,
       },
       {
-        title: <Moment fromNow>{item.updatedAt}</Moment>,
+        title: formatNumber(item.records, 0),
       },
       {
         title: <VersionStatusIcon value={item.status} />,
@@ -102,6 +105,8 @@ export const compareByColumnIndex = (
   switch (columnIndex) {
     case 0: // id
       return a.id - b.id;
+    case 1: // createdAt
+      return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
     default:
       return 0;
   }
@@ -144,7 +149,7 @@ export const VersionList: React.FC<VersionListProps> = () => {
   });
 
   useEffect(() => {
-    fetchVersions();
+    fetchVersions({ watch: true });
   }, [fetchVersions]);
 
   const actionResolver = (rowData: IRowData): (IAction | ISeparator)[] => {
@@ -178,7 +183,7 @@ export const VersionList: React.FC<VersionListProps> = () => {
                   row,
                   () => {
                     dispatch(deleteDialogActions.closeModal());
-                    fetchVersions();
+                    fetchVersions({ watch: true });
                   },
                   (error) => {
                     dispatch(deleteDialogActions.closeModal());
@@ -208,7 +213,7 @@ export const VersionList: React.FC<VersionListProps> = () => {
   const handleNewVersion = () => {
     createVersion()
       .then(() => {
-        fetchVersions();
+        fetchVersions({ watch: true });
       })
       .catch((error) => {
         dispatch(

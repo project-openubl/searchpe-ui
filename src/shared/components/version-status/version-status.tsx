@@ -45,7 +45,7 @@ export const mapStateToIcon = (state: VersionStatus) => {
     case "ERROR":
       return <ErrorCircleOIcon color={globalDangerColor200.value} />;
     case "DELETING":
-      return <Spinner size="md" />;
+      return <Spinner size="sm" />;
     default:
       return "Unknown";
   }
