@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 
 import { AppRoutes } from "./Routes";
 import "./App.scss";
@@ -13,13 +13,13 @@ import DeleteDialog from "./shared/containers/delete-dialog";
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <DefaultLayout>
         <AppRoutes />
       </DefaultLayout>
       <NotificationsPortal />
       <DeleteDialog />
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 

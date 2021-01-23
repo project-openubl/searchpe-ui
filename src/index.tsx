@@ -8,8 +8,9 @@ import { Provider } from "react-redux";
 import configureStore from "./store";
 
 import { initApi } from "axios-config";
+import { getBaseApiUrl } from "utils/modelUtils";
 
-initApi();
+initApi(getBaseApiUrl());
 
 ReactDOM.render(
   <React.StrictMode>

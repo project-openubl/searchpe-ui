@@ -3,11 +3,6 @@ const path = require("path");
 const { app, BrowserWindow } = require("electron");
 const isDev = require("electron-is-dev");
 
-const server = require("./server");
-if (!isDev) {
-  server();
-}
-
 // Conditionally include the dev tools installer to load React Dev Tools
 let installExtension, REACT_DEVELOPER_TOOLS;
 
@@ -33,7 +28,11 @@ function createWindow() {
   });
 
   // and load the index.html of the app.
-  win.loadURL(isDev ? "http://localhost:3000" : "http://localhost:3000");
+  win.loadURL(
+    isDev
+      ? "http://localhost:3000"
+      : `file://${path.join(__dirname, "../build/index.html")}`
+  );
 
   // Open the DevTools.
   if (isDev) {

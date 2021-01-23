@@ -1,5 +1,9 @@
 import { AxiosError } from "axios";
 
+export const getBaseApiUrl = (): string => {
+  return (window as any)["SEARCHPE_API_URL"] || "/api";
+};
+
 // Axios error
 
 export const getAxiosErrorMessage = (axiosError: AxiosError) => {
