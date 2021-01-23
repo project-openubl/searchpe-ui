@@ -1,8 +1,12 @@
 const path = require("path");
-const server = require("./server");
 
 const { app, BrowserWindow } = require("electron");
 const isDev = require("electron-is-dev");
+
+const server = require("./server");
+if (!isDev) {
+  server();
+}
 
 // Conditionally include the dev tools installer to load React Dev Tools
 let installExtension, REACT_DEVELOPER_TOOLS;
