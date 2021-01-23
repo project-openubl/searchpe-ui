@@ -130,7 +130,8 @@
   "config": {
     "forge": {
       "packagerConfig": {
-        "asar": true
+        "asar": true,
+        "icon": "electron/icons/mac/icon.icns"
       },
       "makers": [
         {
