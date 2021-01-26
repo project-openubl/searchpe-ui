@@ -127,15 +127,12 @@
       "prettier --write"
     ]
   },
-  "build": {
-    "directories": {
-      "output": "release/"
-    }
-  },
   "config": {
     "forge": {
       "packagerConfig": {
-        "asar": true,
+        "asar": {
+          "unpackDir": "build"
+        },
         "icon": "electron/icons/mac/icon.icns"
       },
       "makers": [
