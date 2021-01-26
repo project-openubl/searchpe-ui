@@ -127,6 +127,11 @@
       "prettier --write"
     ]
   },
+  "build": {
+    "directories": {
+      "output": "release/"
+    }
+  },
   "config": {
     "forge": {
       "packagerConfig": {
