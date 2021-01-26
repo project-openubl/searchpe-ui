@@ -30,7 +30,11 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
     },
+    show: false,
   });
+
+  win.maximize();
+  win.show();
 
   // and load the index.html of the app.
   win.loadURL(
