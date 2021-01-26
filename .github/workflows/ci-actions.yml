@@ -114,12 +114,14 @@ jobs:
         with:
           node-version: 12.x
       - run: yarn install --network-timeout 1000000
-      - run: yarn run electron:make
+      - run: yarn build
+      - run: mv build electron/
+      - run: yarn run electron:make --cwd electron/
       - name: Upload archive
         uses: actions/upload-artifact@v2
         with:
           name: searchpe-distribution-${{ matrix.os }}
-          path: out/make/**/**
+          path: electron/out/make/**/**
       # - name: Rename distribution
       #   run: |
       #     mv out/make/deb/x64/searchpe*.deb searchpe.amd64.deb
