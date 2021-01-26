@@ -113,29 +113,19 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
+      
       - run: yarn install --network-timeout 1000000
-      - run: yarn build
+      - run: yarn build      
       - run: mv build electron/
+
+      - run: yarn --cwd electron/ install --network-timeout 1000000
       - run: yarn --cwd electron/ run electron:make
+
       - name: Upload archive
         uses: actions/upload-artifact@v2
         with:
           name: searchpe-distribution-${{ matrix.os }}
-          path: electron/out/make/**/**
-      # - name: Rename distribution
-      #   run: |
-      #     mv out/make/deb/x64/searchpe*.deb searchpe.amd64.deb
-      #     mv out/make/rpm/x64/searchpe*.rpm searchpe.x86_64.rpm
-      # - name: Upload .deb
-      #   uses: actions/upload-artifact@v1
-      #   with:
-      #     name: searchpe.amd64.deb
-      #     path: 'searchpe.amd64.deb'
-      # - name: Upload .rpm
-      #   uses: actions/upload-artifact@v1
-      #   with:
-      #     name: searchpe.x86_64.rpm
-      #     path: 'searchpe.x86_64.rpm'
+          path: electron/out/make/**/**     
 
   container-images:
     if: ${{ github.event_name != 'pull_request' && github.repository_owner == 'project-openubl' }}
