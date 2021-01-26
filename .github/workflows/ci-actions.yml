@@ -116,7 +116,7 @@ jobs:
       - run: yarn install --network-timeout 1000000
       - run: yarn build
       - run: mv build electron/
-      - run: yarn run electron:make --cwd electron/
+      - run: yarn --cwd electron/ run electron:make
       - name: Upload archive
         uses: actions/upload-artifact@v2
         with:
