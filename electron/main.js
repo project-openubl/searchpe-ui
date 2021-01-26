@@ -1,5 +1,10 @@
 const path = require("path");
 
+const apiUrl = process?.env?.SEARCHPE_API_URL;
+if (!apiUrl) {
+  process.env["SEARCHPE_API_URL"] = "http://localhost:8080";
+}
+
 const { app, BrowserWindow } = require("electron");
 const isDev = require("electron-is-dev");
 
