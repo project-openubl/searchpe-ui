@@ -115,7 +115,9 @@ jobs:
           node-version: 12.x
       
       - run: yarn install --network-timeout 1000000
-      - run: yarn build      
+      - run: yarn build
+
+      - run: echo 'window["SEARCHPE_API_URL"]=process.env.SEARCHPE_API_URL;' >> build/renderer.js
       - run: mv build electron/
 
       - run: yarn --cwd electron/ install --network-timeout 1000000
