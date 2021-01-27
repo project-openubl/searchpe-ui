@@ -124,10 +124,30 @@ jobs:
       - run: yarn --cwd electron/ run electron:make
 
       - name: Upload archive
+        if: ${{ matrix.os === 'ubuntu-latest' }}
         uses: actions/upload-artifact@v2
         with:
-          name: searchpe-distribution-${{ matrix.os }}
-          path: electron/out/make/**/**     
+          name: searchpe-distribution-deb
+          path: electron/out/make/deb/**/**
+      - name: Upload archive
+        if: ${{ matrix.os === 'ubuntu-latest' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: searchpe-distribution-rpm
+          path: electron/out/make/rpm/**/**
+
+      - name: Upload archive
+        if: ${{ matrix.os === 'windows-latest' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: searchpe-distribution-windows
+          path: electron/out/make/squirrel.windows/**/**
+      - name: Upload archive
+        if: ${{ matrix.os === 'macos-latest' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: searchpe-distribution-macos
+          path: electron/out/zip/darwin/**/**
 
   container-images:
     if: ${{ github.event_name != 'pull_request' && github.repository_owner == 'project-openubl' }}
