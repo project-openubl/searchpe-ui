@@ -147,7 +147,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: searchpe-distribution-macos
-          path: electron/out/zip/darwin/**/**
+          path: electron/out/make/zip/darwin/**/**
 
   container-images:
     if: ${{ github.event_name != 'pull_request' && github.repository_owner == 'project-openubl' }}
