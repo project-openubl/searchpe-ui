@@ -26,14 +26,14 @@ read -s -p "Enter Github Token: " token
 npm version --new-version $releaseVersion
 npm version --prefix electron/ --new-version $releaseVersion
 
-git push "https://$token@github.com/project-openubl/searchpe-ui.git"
+# git push "https://$token@github.com/project-openubl/searchpe-ui.git"
 
-# Create tag and push
-git tag $releaseVersion
-git push "https://$token@github.com/project-openubl/searchpe-ui.git" --tags
+# # Create tag and push
+# git tag $releaseVersion
+# git push "https://$token@github.com/project-openubl/searchpe-ui.git" --tags
 
-# Create next snapshot
-npm version --new-version "$nextVersion-SNAPSHOT"
-npm version --prefix electron/ --new-version "$nextVersion-SNAPSHOT"
+# # Create next snapshot
+# npm version --new-version "$nextVersion-SNAPSHOT"
+# npm version --prefix electron/ --new-version "$nextVersion-SNAPSHOT"
 
-git push "https://$token@github.com/project-openubl/searchpe-ui.git"
+# git push "https://$token@github.com/project-openubl/searchpe-ui.git"
