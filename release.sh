@@ -23,9 +23,11 @@ read -p "Enter Next Release (beta): " nextVersion
 read -s -p "Enter Github Token: " token
 
 # Update to release
-npm version --new-version $releaseVersion --allow-same-version
-npm version --prefix electron/ --new-version $releaseVersion --allow-same-version
+npm version --new-version $releaseVersion --allow-same-version --no-git-tag-version
+npm version --prefix electron/ --new-version $releaseVersion --allow-same-version --no-git-tag-version
 
+git add .
+git commit -m "Release $releaseVersion"
 git push "https://$token@github.com/project-openubl/searchpe-ui.git"
 
 # # Create tag and push
