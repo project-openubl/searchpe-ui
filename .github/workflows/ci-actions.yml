@@ -101,6 +101,54 @@ jobs:
         with:
           flags: e2etests
 
+  electron:
+    needs: [e2e]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      
+      - run: yarn install --network-timeout 1000000
+      - run: yarn build
+
+      - run: echo 'window["SEARCHPE_API_URL"]=process.env.SEARCHPE_API_URL;' >> build/renderer.js
+      - run: mv build electron/
+
+      - run: yarn --cwd electron/ install --network-timeout 1000000
+      - run: yarn --cwd electron/ run electron:make
+
+      - name: Upload archive
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: searchpe-distribution-deb
+          path: electron/out/make/deb/**/**
+      - name: Upload archive
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: searchpe-distribution-rpm
+          path: electron/out/make/rpm/**/**
+
+      - name: Upload archive
+        if: ${{ matrix.os == 'windows-latest' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: searchpe-distribution-windows
+          path: electron/out/make/squirrel.windows/**/**
+      - name: Upload archive
+        if: ${{ matrix.os == 'macos-latest' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: searchpe-distribution-macos
+          path: electron/out/make/zip/darwin/**/**
+
   container-images:
     if: ${{ github.event_name != 'pull_request' && github.repository_owner == 'project-openubl' }}
     runs-on: ubuntu-latest
