@@ -43,7 +43,7 @@ jobs:
       - name: Prepare windows zip
         if: ${{ matrix.os == 'windows-latest' }}
         shell: bash
-        run: zip -r -j searchpe-ui-windows.zip electron/out/make/squirrel.windows/x64
+        run: 7z a -tzip searchpe-ui-windows.zip ./electron/out/make/squirrel.windows/x64/*
       - name: Upload windows archive
         if: ${{ matrix.os == 'windows-latest' }}
         uses: actions/upload-artifact@v2
@@ -56,7 +56,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: searchpe-ui-macos
-          path: electron/out/make/zip/darwin/*.zip
+          path: electron/out/make/**/*.zip
 
   container-image:
     name: Container images
