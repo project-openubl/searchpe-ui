@@ -7,7 +7,6 @@ on:
 
 jobs:
   electron:
-    needs: [e2e]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
