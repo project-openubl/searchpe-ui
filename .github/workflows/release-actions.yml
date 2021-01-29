@@ -27,18 +27,23 @@ jobs:
       - run: yarn --cwd electron/ install --network-timeout 1000000
       - run: yarn --cwd electron/ run electron:make
 
-      - name: Upload archive
+      - name: Prepare rpm and deb
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: |
+          mv electron/out/make/deb/x64/*.deb electron/out/make/deb/x64/searchpe-ui.deb
+          mv electron/out/make/rpm/x64/*.rpm electron/out/make/rpm/x64/searchpe-ui.rpm
+      - name: Upload deb
         if: ${{ matrix.os == 'ubuntu-latest' }}
         uses: actions/upload-artifact@v2
         with:
           name: searchpe-ui-deb
-          path: electron/out/make/deb/x64/*.deb
-      - name: Upload archive
+          path: electron/out/make/deb/x64/searchpe-ui.deb
+      - name: Upload rpm
         if: ${{ matrix.os == 'ubuntu-latest' }}
         uses: actions/upload-artifact@v2
         with:
           name: searchpe-ui-rpm
-          path: electron/out/make/rpm/x64/*.rpm
+          path: electron/out/make/rpm/x64/searchpe-ui.rpm
 
       - name: Prepare windows zip
         if: ${{ matrix.os == 'windows-latest' }}
@@ -51,12 +56,15 @@ jobs:
           name: searchpe-ui-windows
           path: searchpe-ui-windows.zip
 
+      - name: Prepare macos zip
+        if: ${{ matrix.os == 'macos-latest' }}
+        run: mv electron/out/make/**/*.zip searchpe-ui-macos.zip
       - name: Upload archive
         if: ${{ matrix.os == 'macos-latest' }}
         uses: actions/upload-artifact@v2
         with:
           name: searchpe-ui-macos
-          path: electron/out/make/**/*.zip
+          path: searchpe-ui-macos.zip
 
   container-image:
     name: Container images
@@ -126,25 +134,25 @@ jobs:
       - name: Download all artifacts
         uses: actions/download-artifact@v2
 
-      - name: Upload release artifact
+      - name: Upload deb
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: searchpe-ui-deb/searchpe-ui_${{ steps.get_version.outputs.VERSION }}_amd64.deb
-          asset_name: searchpe-ui-${{ steps.get_version.outputs.VERSION }}_amd64.deb
+          asset_path: searchpe-ui-deb/searchpe-ui.deb
+          asset_name: searchpe-ui-${{ steps.get_version.outputs.VERSION }}.deb
           asset_content_type: application/vnd.debian.binary-package
-      - name: Upload release artifact
+      - name: Upload rpm
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: searchpe-ui-rpm/searchpe-ui-${{ steps.get_version.outputs.VERSION }}-1.x86_64.rpm
-          asset_name: searchpe-ui-${{ steps.get_version.outputs.VERSION }}.x86_64.rpm
+          asset_path: searchpe-ui-rpm/searchpe-ui.rpm
+          asset_name: searchpe-ui-${{ steps.get_version.outputs.VERSION }}.rpm
           asset_content_type: application/x-rpm
-      - name: Upload release artifact
+      - name: Upload windows zip
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -153,13 +161,13 @@ jobs:
           asset_path: searchpe-ui-windows/searchpe-ui-windows.zip
           asset_name: searchpe-ui-${{ steps.get_version.outputs.VERSION }}-windows.zip
           asset_content_type: application/zip
-      - name: Upload release artifact
+      - name: Upload macos zip
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: searchpe-ui-macos/searchpe-ui-darwin-x64-${{ steps.get_version.outputs.VERSION }}.zip
+          asset_path: searchpe-ui-macos/searchpe-ui-macos.zip
           asset_name: searchpe-ui-${{ steps.get_version.outputs.VERSION }}-macos.zip
           asset_content_type: application/zip
 
