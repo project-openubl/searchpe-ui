@@ -58,7 +58,7 @@ jobs:
 
       - name: Prepare macos zip
         if: ${{ matrix.os == 'macos-latest' }}
-        run: mv electron/out/make/**/*.zip searchpe-ui-macos.zip
+        run: mv electron/out/make/**/**/*.zip searchpe-ui-macos.zip
       - name: Upload archive
         if: ${{ matrix.os == 'macos-latest' }}
         uses: actions/upload-artifact@v2
