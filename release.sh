@@ -35,8 +35,8 @@ git tag $releaseVersion
 git push "https://$token@github.com/project-openubl/searchpe-ui.git" --tags
 
 # # Create next snapshot
-npm version --new-version "$nextVersion-beta"
-npm version --prefix electron/ --new-version "$nextVersion-beta"
+npm version --new-version "$nextVersion-beta" --no-git-tag-version
+npm version --prefix electron/ --new-version "$nextVersion-beta" --no-git-tag-version
 
 git add .
 git commit -m "Prepare next release $nextVersion-beta"
