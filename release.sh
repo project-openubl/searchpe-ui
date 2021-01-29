@@ -38,4 +38,6 @@ git push "https://$token@github.com/project-openubl/searchpe-ui.git" --tags
 npm version --new-version "$nextVersion-beta"
 npm version --prefix electron/ --new-version "$nextVersion-beta"
 
+git add .
+git commit -m "Prepare next release $nextVersion-beta"
 git push "https://$token@github.com/project-openubl/searchpe-ui.git"
