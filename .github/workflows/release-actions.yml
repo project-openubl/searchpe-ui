@@ -56,12 +56,9 @@ jobs:
           name: searchpe-ui-windows
           path: searchpe-ui-windows.zip
 
-      - name: test
-        if: ${{ matrix.os == 'macos-latest' }}
-        run: find electron/out/make/ -name '*.zip'
       - name: Prepare macos zip
         if: ${{ matrix.os == 'macos-latest' }}
-        run: mv electron/out/make/zip/darwin/**/**/.*zip searchpe-ui-macos.zip
+        run: mv electron/out/make/zip/darwin/x64/*.zip searchpe-ui-macos.zip
       - name: Upload archive
         if: ${{ matrix.os == 'macos-latest' }}
         uses: actions/upload-artifact@v2
