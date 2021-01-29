@@ -86,7 +86,6 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           dockerfile: Dockerfile
           snapshot: false
-          tags: "latest"
           tag_names: true
       - name: Push to Docker Hub
         uses: elgohr/Publish-Docker-Github-Action@3.02
@@ -96,7 +95,6 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           dockerfile: Dockerfile
           snapshot: false
-          tags: "latest"
           tag_names: true
       - name: Push to Quay.io
         uses: elgohr/Publish-Docker-Github-Action@3.02
@@ -107,7 +105,6 @@ jobs:
           password: ${{ secrets.QUAYIO_PASSWORD }}
           dockerfile: Dockerfile
           snapshot: false
-          tags: "latest"
           tag_names: true
 
   release-gh:
