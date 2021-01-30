@@ -53,7 +53,7 @@ http {
 
         location /api {
             rewrite     ^/api(/.*)$ $1 break;
-            proxy_pass  ${API_URL};
+            proxy_pass  ${SEARCHPE_API_URL};
         }
 
         error_page 404 /404.html;
