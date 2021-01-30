@@ -2,7 +2,7 @@ const path = require("path");
 
 const apiUrl = process?.env?.SEARCHPE_API_URL;
 if (!apiUrl) {
-  process.env["SEARCHPE_API_URL"] = "http://localhost:8080";
+  process.env["SEARCHPE_API_URL"] = "http://localhost:8180";
 }
 
 const { app, BrowserWindow } = require("electron");
