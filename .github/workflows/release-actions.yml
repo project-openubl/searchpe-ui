@@ -77,22 +77,13 @@ jobs:
           node-version: 12.x
       - run: yarn install
       - run: yarn build
-      - name: Push to GitHub Packages
+      - name: Push to Quay.io
         uses: elgohr/Publish-Docker-Github-Action@3.02
         with:
-          registry: docker.pkg.github.com
-          name: project-openubl/searchpe-ui/searchpe-ui
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          dockerfile: Dockerfile
-          snapshot: false
-          tag_names: true
-      - name: Push to Docker Hub
-        uses: elgohr/Publish-Docker-Github-Action@3.02
-        with:
+          registry: quay.io
           name: projectopenubl/searchpe-ui
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: ${{ secrets.QUAYIO_USERNAME }}
+          password: ${{ secrets.QUAYIO_PASSWORD }}
           dockerfile: Dockerfile
           snapshot: false
           tag_names: true
@@ -105,7 +96,7 @@ jobs:
           password: ${{ secrets.QUAYIO_PASSWORD }}
           dockerfile: Dockerfile
           snapshot: false
-          tag_names: true
+          tags: "latest"
 
   release-gh:
     name: Create Release
