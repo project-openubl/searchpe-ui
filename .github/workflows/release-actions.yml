@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - '*'
+      - "*"
 
 jobs:
   electron:
@@ -17,15 +17,21 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      
-      - run: yarn install --network-timeout 1000000
-      - run: yarn build
 
-      - run: echo 'window["SEARCHPE_API_URL"]=process.env.SEARCHPE_API_URL;' >> build/renderer.js
-      - run: mv build electron/
+      - name: Build
+        run: |
+          yarn install --network-timeout 1000000
+          yarn build
 
-      - run: yarn --cwd electron/ install --network-timeout 1000000
-      - run: yarn --cwd electron/ run electron:make
+      - name: renderer.js
+        run: |
+          echo 'window["SEARCHPE_API_URL"]=process.env.SEARCHPE_API_URL;' >> build/renderer.js
+          mv build electron/
+
+      - name: Electron
+        run: |
+          yarn --cwd electron/ install --network-timeout 1000000
+          yarn --cwd electron/ run electron:make
 
       - name: Prepare rpm and deb
         if: ${{ matrix.os == 'ubuntu-latest' }}
@@ -75,8 +81,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - run: yarn install
-      - run: yarn build
+      - name: Build
+        run: |
+          yarn install
+          yarn build
+
       - name: Push to Quay.io
         uses: elgohr/Publish-Docker-Github-Action@3.02
         with:
@@ -98,10 +107,50 @@ jobs:
           snapshot: false
           tags: "latest"
 
+      - name: Push to GitHub Packages
+        uses: elgohr/Publish-Docker-Github-Action@3.02
+        with:
+          registry: docker.pkg.github.com
+          name: project-openubl/searchpe-ui/searchpe-ui
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          dockerfile: Dockerfile
+          snapshot: false
+          tag_names: true
+      - name: Push to GitHub Packages
+        uses: elgohr/Publish-Docker-Github-Action@3.02
+        with:
+          registry: docker.pkg.github.com
+          name: project-openubl/searchpe-ui/searchpe-ui
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          dockerfile: Dockerfile
+          snapshot: false
+          tags: "latest"
+
+      - name: Push to Docker Hub
+        uses: elgohr/Publish-Docker-Github-Action@3.02
+        with:
+          name: projectopenubl/searchpe-ui
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          dockerfile: Dockerfile
+          snapshot: false
+          tag_names: true
+      - name: Push to Docker Hub
+        uses: elgohr/Publish-Docker-Github-Action@3.02
+        with:
+          name: projectopenubl/searchpe-ui
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          dockerfile: Dockerfile
+          snapshot: false
+          tags: "latest"
+
   release-gh:
     name: Create Release
     runs-on: ubuntu-latest
-    needs: [ electron, container-image ]
+    needs: [electron, container-image]
     steps:
       - uses: actions/checkout@v2
       - name: Create Release
@@ -158,5 +207,3 @@ jobs:
           asset_path: searchpe-ui-macos/searchpe-ui-macos.zip
           asset_name: searchpe-ui-${{ steps.get_version.outputs.VERSION }}-macos.zip
           asset_content_type: application/zip
-
-

@@ -3,13 +3,13 @@ name: CI
 on:
   push:
     branches:
-      - '**'
+      - "**"
     tags-ignore:
-      - '**'
+      - "**"
   pull_request:
     paths-ignore:
-      - '.gitignore'
-      - '.dockerignore'
+      - ".gitignore"
+      - ".dockerignore"
 
 jobs:
   unit-test:
@@ -23,8 +23,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: yarn install
-      - run: yarn build
+      - name: Build
+        run: |
+          yarn install
+          yarn build
       - run: yarn test --coverage --watchAll=false
       - uses: codecov/codecov-action@v1
         with:
@@ -70,7 +72,7 @@ jobs:
         env:
           QUARKUS_DATASOURCE_USERNAME: user
           QUARKUS_DATASOURCE_PASSWORD: password
-          QUARKUS_DATASOURCE_JDBC_URL: jdbc:postgresql://backend-db:5432/searchpe_db          
+          QUARKUS_DATASOURCE_JDBC_URL: jdbc:postgresql://backend-db:5432/searchpe_db
           QUARKUS_HIBERNATE_SEARCH_ORM_ELASTICSEARCH_USERNAME: any
           QUARKUS_HIBERNATE_SEARCH_ORM_ELASTICSEARCH_PASSWORD: any
           QUARKUS_HIBERNATE_SEARCH_ORM_ELASTICSEARCH_HOSTS: elasticsearch:9200
@@ -82,15 +84,17 @@ jobs:
           --health-retries 5
     steps:
       - name: Checkout
-        uses: actions/checkout@v2     
-      - run: yarn install
-      - run: yarn build:instrumentation
+        uses: actions/checkout@v2
+      - name: Build
+        run: |
+          yarn install
+          yarn build:instrumentation
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
           record: false
           start: yarn run ui:start
-          wait-on: 'http://localhost:3000'
+          wait-on: "http://localhost:3000"
           wait-on-timeout: 120
           config: pageLoadTimeout=100000
           browser: ${{ matrix.browser }}
@@ -122,15 +126,21 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      
-      - run: yarn install --network-timeout 1000000
-      - run: yarn build
 
-      - run: echo 'window["SEARCHPE_API_URL"]=process.env.SEARCHPE_API_URL;' >> build/renderer.js
-      - run: mv build electron/
+      - name: Build
+        run: |
+          yarn install --network-timeout 1000000
+          yarn build
 
-      - run: yarn --cwd electron/ install --network-timeout 1000000
-      - run: yarn --cwd electron/ run electron:make
+      - name: renderer.js
+        run: |
+          echo 'window["SEARCHPE_API_URL"]=process.env.SEARCHPE_API_URL;' >> build/renderer.js
+          mv build electron/
+
+      - name: Electron
+        run: |
+          yarn --cwd electron/ install --network-timeout 1000000
+          yarn --cwd electron/ run electron:make
 
       - name: Upload archive
         if: ${{ matrix.os == 'ubuntu-latest' }}
@@ -168,8 +178,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - run: yarn install
-      - run: yarn build
+      - name: Build
+        run: |
+          yarn install
+          yarn build
       - name: Push to Quay.io
         uses: elgohr/Publish-Docker-Github-Action@3.02
         with:
@@ -177,6 +189,25 @@ jobs:
           name: projectopenubl/searchpe-ui
           username: ${{ secrets.QUAYIO_USERNAME }}
           password: ${{ secrets.QUAYIO_PASSWORD }}
+          dockerfile: Dockerfile
+          snapshot: false
+          tags: "master"
+      - name: Push to GitHub Packages
+        uses: elgohr/Publish-Docker-Github-Action@3.02
+        with:
+          registry: docker.pkg.github.com
+          name: project-openubl/searchpe-ui/searchpe-ui
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          dockerfile: Dockerfile
+          snapshot: false
+          tags: "master"
+      - name: Push to Docker Hub
+        uses: elgohr/Publish-Docker-Github-Action@3.02
+        with:
+          name: projectopenubl/searchpe-ui
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
           dockerfile: Dockerfile
           snapshot: false
           tags: "master"
