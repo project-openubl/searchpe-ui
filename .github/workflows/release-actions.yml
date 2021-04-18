@@ -87,7 +87,7 @@ jobs:
           yarn build
 
       - name: Push to Quay.io
-        uses: elgohr/Publish-Docker-Github-Action@3.02
+        uses: elgohr/Publish-Docker-Github-Action@3.03
         with:
           registry: quay.io
           name: projectopenubl/searchpe-ui
@@ -97,7 +97,7 @@ jobs:
           snapshot: false
           tag_names: true
       - name: Push to Quay.io
-        uses: elgohr/Publish-Docker-Github-Action@3.02
+        uses: elgohr/Publish-Docker-Github-Action@3.03
         with:
           registry: quay.io
           name: projectopenubl/searchpe-ui
@@ -108,7 +108,7 @@ jobs:
           tags: "latest"
 
       - name: Push to GitHub Packages
-        uses: elgohr/Publish-Docker-Github-Action@3.02
+        uses: elgohr/Publish-Docker-Github-Action@3.03
         with:
           registry: docker.pkg.github.com
           name: project-openubl/searchpe-ui/searchpe-ui
@@ -118,7 +118,7 @@ jobs:
           snapshot: false
           tag_names: true
       - name: Push to GitHub Packages
-        uses: elgohr/Publish-Docker-Github-Action@3.02
+        uses: elgohr/Publish-Docker-Github-Action@3.03
         with:
           registry: docker.pkg.github.com
           name: project-openubl/searchpe-ui/searchpe-ui
@@ -129,7 +129,7 @@ jobs:
           tags: "latest"
 
       - name: Push to Docker Hub
-        uses: elgohr/Publish-Docker-Github-Action@3.02
+        uses: elgohr/Publish-Docker-Github-Action@3.03
         with:
           name: projectopenubl/searchpe-ui
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -138,7 +138,7 @@ jobs:
           snapshot: false
           tag_names: true
       - name: Push to Docker Hub
-        uses: elgohr/Publish-Docker-Github-Action@3.02
+        uses: elgohr/Publish-Docker-Github-Action@3.03
         with:
           name: projectopenubl/searchpe-ui
           username: ${{ secrets.DOCKER_USERNAME }}
