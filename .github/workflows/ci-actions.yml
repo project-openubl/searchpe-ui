@@ -104,12 +104,12 @@ jobs:
           browser: ${{ matrix.browser }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v2.2.3
         if: failure()
         with:
           name: e2e-screenshots-${{ matrix.os }}-${{ matrix.browser }}
           path: cypress/screenshots
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v2.2.3
         if: always()
         with:
           name: e2e-videos-${{ matrix.os }}-${{ matrix.browser }}
@@ -148,26 +148,26 @@ jobs:
 
       - name: Upload archive
         if: ${{ matrix.os == 'ubuntu-latest' }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v2.2.3
         with:
           name: searchpe-ui-deb
           path: electron/out/make/deb/**/**
       - name: Upload archive
         if: ${{ matrix.os == 'ubuntu-latest' }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v2.2.3
         with:
           name: searchpe-ui-rpm
           path: electron/out/make/rpm/**/**
 
       - name: Upload archive
         if: ${{ matrix.os == 'windows-latest' }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v2.2.3
         with:
           name: searchpe-ui-windows
           path: electron/out/make/squirrel.windows/**/**
       - name: Upload archive
         if: ${{ matrix.os == 'macos-latest' }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v2.2.3
         with:
           name: searchpe-ui-macos
           path: electron/out/make/zip/darwin/**/**
