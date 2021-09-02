@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v2.4.0
         with:
           node-version: ${{ matrix.node-version }}
       - name: Build
@@ -127,7 +127,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v2.4.0
         with:
           node-version: 12.x
 
@@ -179,7 +179,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v2.4.0
         with:
           node-version: 12.x
       - name: Build
@@ -187,7 +187,7 @@ jobs:
           yarn install
           yarn build
       - name: Push to Quay.io
-        uses: elgohr/Publish-Docker-Github-Action@3.03
+        uses: elgohr/Publish-Docker-Github-Action@3.04
         with:
           registry: quay.io
           name: projectopenubl/searchpe-ui
@@ -197,7 +197,7 @@ jobs:
           snapshot: false
           tags: "master"
       - name: Push to GitHub Packages
-        uses: elgohr/Publish-Docker-Github-Action@3.03
+        uses: elgohr/Publish-Docker-Github-Action@3.04
         with:
           registry: docker.pkg.github.com
           name: project-openubl/searchpe-ui/searchpe-ui
@@ -207,7 +207,7 @@ jobs:
           snapshot: false
           tags: "master"
       - name: Push to Docker Hub
-        uses: elgohr/Publish-Docker-Github-Action@3.03
+        uses: elgohr/Publish-Docker-Github-Action@3.04
         with:
           name: projectopenubl/searchpe-ui
           username: ${{ secrets.DOCKER_USERNAME }}
