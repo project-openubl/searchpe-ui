@@ -40,13 +40,13 @@ jobs:
           mv electron/out/make/rpm/x64/*.rpm electron/out/make/rpm/x64/searchpe-ui.rpm
       - name: Upload deb
         if: ${{ matrix.os == 'ubuntu-latest' }}
-        uses: actions/upload-artifact@v2.2.3
+        uses: actions/upload-artifact@v2.2.4
         with:
           name: searchpe-ui-deb
           path: electron/out/make/deb/x64/searchpe-ui.deb
       - name: Upload rpm
         if: ${{ matrix.os == 'ubuntu-latest' }}
-        uses: actions/upload-artifact@v2.2.3
+        uses: actions/upload-artifact@v2.2.4
         with:
           name: searchpe-ui-rpm
           path: electron/out/make/rpm/x64/searchpe-ui.rpm
@@ -57,7 +57,7 @@ jobs:
         run: 7z a -tzip searchpe-ui-windows.zip ./electron/out/make/squirrel.windows/x64/*
       - name: Upload windows archive
         if: ${{ matrix.os == 'windows-latest' }}
-        uses: actions/upload-artifact@v2.2.3
+        uses: actions/upload-artifact@v2.2.4
         with:
           name: searchpe-ui-windows
           path: searchpe-ui-windows.zip
@@ -67,7 +67,7 @@ jobs:
         run: mv electron/out/make/zip/darwin/x64/*.zip searchpe-ui-macos.zip
       - name: Upload archive
         if: ${{ matrix.os == 'macos-latest' }}
-        uses: actions/upload-artifact@v2.2.3
+        uses: actions/upload-artifact@v2.2.4
         with:
           name: searchpe-ui-macos
           path: searchpe-ui-macos.zip
