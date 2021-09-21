@@ -53,7 +53,7 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-      backend-db:
+      searchpe-db:
         image: postgres:13.1
         ports:
           - 5432:5432
@@ -66,26 +66,22 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-      backend:
-        image: quay.io/projectopenubl/searchpe:master
-        ports:
-          - 8080:8080
-        env:
-          QUARKUS_DATASOURCE_USERNAME: user
-          QUARKUS_DATASOURCE_PASSWORD: password
-          QUARKUS_DATASOURCE_JDBC_URL: jdbc:postgresql://backend-db:5432/searchpe_db
-          QUARKUS_HIBERNATE_SEARCH_ORM_ELASTICSEARCH_USERNAME: any
-          QUARKUS_HIBERNATE_SEARCH_ORM_ELASTICSEARCH_PASSWORD: any
-          QUARKUS_HIBERNATE_SEARCH_ORM_ELASTICSEARCH_HOSTS: elasticsearch:9200
-          QUARKUS_HIBERNATE_SEARCH_ORM_ELASTICSEARCH_PROTOCOL: HTTP
-        options: >-
-          --health-cmd "curl --fail http://localhost:8080/q/health || exit 1"
-          --health-interval 20s
-          --health-timeout 10s
-          --health-retries 10
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Searchpe
+        run: |
+          docker run -d --name searchpe --network ${{ job.services.searchpe-db.network }} --network-alias searchpe -p 8080:8080 \
+          -e QUARKUS_HTTP_PORT=8080 \
+          -e QUARKUS_DATASOURCE_USERNAME=user \
+          -e QUARKUS_DATASOURCE_PASSWORD=password \
+          -e QUARKUS_DATASOURCE_JDBC_URL=jdbc:postgresql://searchpe-db:5432/searchpe_db \
+          -e QUARKUS_HIBERNATE_SEARCH_ORM_ELASTICSEARCH_USERNAME=any \
+          -e QUARKUS_HIBERNATE_SEARCH_ORM_ELASTICSEARCH_PASSWORD=any \
+          -e QUARKUS_HIBERNATE_SEARCH_ORM_ELASTICSEARCH_HOSTS=elasticsearch:9200 \
+          -e QUARKUS_HIBERNATE_SEARCH_ORM_ELASTICSEARCH_PROTOCOL=HTTP \
+          quay.io/projectopenubl/searchpe:master
+          sleep 5s && docker logs searchpe
       - name: Build
         run: |
           yarn install
