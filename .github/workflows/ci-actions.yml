@@ -82,10 +82,10 @@ jobs:
           QUARKUS_HIBERNATE_SEARCH_ORM_ELASTICSEARCH_HOSTS: elasticsearch:9200
           QUARKUS_HIBERNATE_SEARCH_ORM_ELASTICSEARCH_PROTOCOL: HTTP
         options: >-
-          --health-cmd "curl --fail http://localhost:8080 || exit 1"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          --health-cmd "curl --fail http://localhost:8080/q/health || exit 1"
+          --health-interval 20s
+          --health-timeout 10s
+          --health-retries 10
     steps:
       - name: Checkout
         uses: actions/checkout@v2
