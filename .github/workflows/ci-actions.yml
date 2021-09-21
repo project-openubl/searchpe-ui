@@ -16,28 +16,28 @@ on:
     - cron: "0 0 * * *"
 
 jobs:
-  unit-test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x, 14.x]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2.4.0
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Build
-        run: |
-          yarn install
-          yarn build
-      - run: yarn test --coverage --watchAll=false
-      - uses: codecov/codecov-action@v2.0.3
-        with:
-          flags: unitests
+  # unit-test:
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       node-version: [12.x, 14.x]
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Use Node.js ${{ matrix.node-version }}
+  #       uses: actions/setup-node@v2.4.0
+  #       with:
+  #         node-version: ${{ matrix.node-version }}
+  #     - name: Build
+  #       run: |
+  #         yarn install
+  #         yarn build
+  #     - run: yarn test --coverage --watchAll=false
+  #     - uses: codecov/codecov-action@v2.0.3
+  #       with:
+  #         flags: unitests
 
   e2e:
-    needs: [unit-test]
+    # needs: [unit-test]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
