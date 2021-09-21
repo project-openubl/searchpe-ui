@@ -12,20 +12,12 @@ UI application for the searchpe project.
 
 To start in development mode follow the next steps:
 
-### Start the backend DB
+### Start dependencies
 
 Execute:
 
 ```shell
-docker run -p 5432:5432 -e POSTGRES_USER=searchpe_username -e POSTGRES_PASSWORD=searchpe_password -e POSTGRES_DB=searchpe_db postgres:13.1
-```
-
-### Star the backend
-
-You need to clone the backend server and then start it using:
-
-```shell
-./mvnw quarkus:dev
+docker-compose up
 ```
 
 ### Start the UI
