@@ -28,6 +28,7 @@ export interface AppTableWithControlsProps {
   items: any[];
   itemsToRow: (items: any[]) => IRow[];
 
+  hiddeBottomPagination?: boolean;
   pagination: {
     perPage?: number;
     page?: number;
@@ -70,6 +71,7 @@ export const AppTableWithControls: React.FC<AppTableWithControlsProps> = ({
   items,
   itemsToRow,
 
+  hiddeBottomPagination,
   pagination,
   sortBy,
   handleFilterTextChange,
@@ -133,11 +135,13 @@ export const AppTableWithControls: React.FC<AppTableWithControlsProps> = ({
         noSearchResultsState={noSearchResultsState}
         errorState={errorState}
       />
-      <SimplePagination
-        count={count}
-        params={pagination}
-        onChange={handlePaginationChange}
-      />
+      {!hiddeBottomPagination && (
+        <SimplePagination
+          count={count}
+          params={pagination}
+          onChange={handlePaginationChange}
+        />
+      )}
     </div>
   );
 };

@@ -163,6 +163,7 @@ export const ContribuyenteList: React.FC<ContribuyenteListProps> = () => {
           <AppTableWithControls
             count={contribuyentes ? contribuyentes.meta.count : 0}
             items={contribuyentes ? contribuyentes.data : []}
+            hiddeBottomPagination={true}
             itemsToRow={itemsToRow}
             pagination={paginationQuery}
             sortBy={sortBy}
